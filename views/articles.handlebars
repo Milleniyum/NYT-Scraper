@@ -1,0 +1,64 @@
+{{#each articles}}
+{{#if new}}
+<div class="row">
+  <div class="col s12">
+    <div class="card blue darken-4">
+      <div class="card-content white-text">
+        <a href="{{link}}" target="_blank"><span class="article-badge new badge red"></span></a>
+        <span class="card-title">{{title}}</span>
+        <p>{{summary}}</p>
+        {{#if byline}}by {{byline}}{{/if}}
+      </div>
+      <div class="card-action">
+        <a href="{{link}}" target="_blank">Go to Article</a>
+        <a href="#" class="notes" data-id={{id}}>View/Add Notes ({{notes}})</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+{{/each}}
+
+{{#each articles}}
+{{#unless new}}
+<div class="row">
+  <div class="col s12">
+    <div class="card blue darken-4">
+      <div class="card-content white-text">
+        <span class="card-title">{{title}}</span>
+        <p>{{summary}}</p>
+        {{#if byline}}by {{byline}}{{/if}}
+      </div>
+      <div class="card-action">
+        <a href="{{link}}" target="_blank">Go to Article</a>
+        <a class="notes" data-id={{id}}>View/Add Notes ({{notes}})</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{/unless}}
+{{/each}}
+
+<div id="notes-modal" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <h4>Article Header</h4>
+      <form class="col s12">
+        <div class="row" style="margin-bottom: 0">
+          <div class="input-field col s6">
+            <input placeholder="Your Name" id="your-name" type="text" class="validate">
+            <label for="username"></label>
+          </div>
+          <div class="input-field col s12">
+            <textarea placeholder="Your Note" id="your-note" class="materialize-textarea"></textarea>
+            <label for="your-note"></label>
+          </div>
+        </div>
+        <a id="add-note" data-id="" class="waves-effect waves-light btn blue">Add</a>
+      </form>
+    </div>
+    <div id="notes-section"></div>
+  </div>
+</div>
+
+<script src="/js/articles.js"></script>

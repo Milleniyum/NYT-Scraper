@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>New York Times Scraper</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-wrapper blue">
+            <a class="btn waves-effect waves light blue darken-4" href="/">Home</a>
+            <ul class="right">
+                <li><a><span id="new-count" class="new badge red">0</span></a></li>
+                <li><a class="btn waves-effect waves-light blue accent-4" href="/">Scrape</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="jumbotron text-center">
+        <div class="overlay">
+        </div>
+        <div class="background-image">
+        </div>
+        <div class="caption">
+            <h1>Scraper</h1>
+            <p>New York Times</p>
+        </div>
+    </div>
+    <div class="container-fluid article-container">
+        {{{body}}}
+
+        <script src="/js/main.js"></script>
+</body>
+
+</html>

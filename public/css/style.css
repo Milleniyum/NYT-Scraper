@@ -1,0 +1,69 @@
+#header-logo {
+    height: 55px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.jumbotron {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    padding: 0;
+    font-family: "Cormorant SC";
+    box-shadow: 10px 5px 20px 2px lightslategrey;
+}
+
+.jumbotron .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: auto;
+    background: linear-gradient(#333, black);
+    opacity: 0.7;
+}
+
+.jumbotron .background-image {
+    height: 100%;
+    background-image: url("../images/newyork.jpg");
+    background-size: cover;
+}
+
+.jumbotron .caption {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+}
+
+.jumbotron .caption h1,
+.jumbotron .caption p {
+    color: white;
+}
+
+.jumbotron h1 {
+    font-size: 60px;
+    font-weight: 800;
+}
+
+.jumbotron p {
+    font-size: 25px;
+}
+
+.delete-note {
+    cursor: pointer;
+}
+
+.notes {
+    cursor: pointer;
+}
+
+.note-body {
+    display: inline;
+    padding-left: 5px;
+}
+
+.note-row {
+    border-top: 1px solid blue;
+}
