@@ -12,14 +12,14 @@ $(".article-badge").on("click", function() {
 })
 
 $(".notes").on("click", function() {
-    populateNotes($(this).data("id"));
+    populateNotes($(this).attr("data-id"));
 })
 
 $("#add-note").on("click", function() {
     var yourName = $("#your-name").val().trim();
     var yourNote = $("#your-note").val().trim();
     if (yourName && yourNote) {
-        $.ajax("/" + $(this).data("id"), {
+        $.ajax("/" + $(this).attr("data-id"), {
             method: "PUT",
             data: { user: yourName, body: yourNote }
         }).then(function(response) {
@@ -29,11 +29,11 @@ $("#add-note").on("click", function() {
 });
 
 $(document).on("click", ".delete-note", function() {
-    $.ajax("/" + $("#add-note").data("id"), {
+    $.ajax("/" + $("#add-note").attr("data-id"), {
         method: "DELETE",
-        data: { id: $(this).data("id") }
+        data: { id: $(this).attr("data-id") }
     }).then(function(response) {
-        populateNotes($("#add-note").data("id"));
+        populateNotes($("#add-note").attr("data-id"));
     })
 })
 
