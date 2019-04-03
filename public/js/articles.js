@@ -4,16 +4,21 @@ function countBadges() {
         numNew++;
     });
     $("#new-count").text(numNew);
-}
+};
 
 $(".article-badge").on("click", function() {
     $(this).remove();
     countBadges();
-})
+});
+
+$(".article-link").on("click", function() {
+    $(this).parent().parent().find(".badge").remove();
+    countBadges();
+});
 
 $(".notes").on("click", function() {
     populateNotes($(this).attr("data-id"));
-})
+});
 
 $("#add-note").on("click", function() {
     var yourName = $("#your-name").val().trim();
@@ -46,6 +51,7 @@ function populateNotes(articleId) {
         $("#your-note").val("");
         $("#add-note").attr("data-id", response._id);
         $("#notes-modal h4").text(response.title);
+        $(".notes[data-id=" + articleId + "]").text("VIEW/ADD NOTES (" + response.notes.length + ")");
         for (var i = 0; i < response.notes.length; i++) {
             var col = $("<div class='col s12'>");
             col.append($("<i data-id=" + response.notes[i]._id + " class='fas fa-trash-alt delete-note'>"));
@@ -56,7 +62,7 @@ function populateNotes(articleId) {
         $("#notes-modal").modal("open");
         M.updateTextFields();
     });
-}
+};
 
 $(document).ready(function() {
     countBadges();
