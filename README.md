@@ -14,7 +14,7 @@ All visitors to the page can leave notes on the article by clicking the View/Add
 
 ### Favorites
 
-User can mark their favorite articles by clicking the star icon on each article. Notification toasts will appear on screen indicating if a favorite has been added or removed. Clicking the favorites button will navigate to the favorites page where these articles will be filtered from non-favorited articles.
+Users can mark their favorite articles by clicking the star icon on each article. Notification toasts will appear on screen indicating if a favorite has been added or removed. Clicking the favorites button will navigate to the favorites page where these articles will be filtered from non-favorited articles.
 
 ![Favorites](https://github.com/Milleniyum/NYT-Scraper/blob/master/public/images/favorites.gif)
 
