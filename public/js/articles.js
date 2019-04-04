@@ -16,6 +16,28 @@ $(".article-link").on("click", function() {
     countBadges();
 });
 
+$(".fa-star").on("click", function() {
+    var favorite;
+    if ($(this).hasClass("far")) {
+        $(this).removeClass("far");
+        $(this).addClass("fas");
+        favorite = true;
+    } else {
+        $(this).removeClass("fas");
+        $(this).addClass("far");
+        favorite = false;
+    }
+
+    $.ajax("/favorites", {
+        method: "POST",
+        data: { articleId: $(this).attr("data-id"), favorite: favorite }
+    }).then(function(response) {
+        favorite ? M.toast({ html: 'Favorite Added', classes: 'rounded' }) : M.toast({ html: 'Favorite Removed', classes: 'rounded' });
+    });
+
+    if (window.location.pathname === "/favorites") $(this).parent().parent().remove();
+})
+
 $(".notes").on("click", function() {
     populateNotes($(this).attr("data-id"));
 });
@@ -24,7 +46,7 @@ $("#add-note").on("click", function() {
     var yourName = $("#your-name").val().trim();
     var yourNote = $("#your-note").val().trim();
     if (yourName && yourNote) {
-        $.ajax("/" + $(this).attr("data-id"), {
+        $.ajax("/api/" + $(this).attr("data-id"), {
             method: "PUT",
             data: { user: yourName, body: yourNote }
         }).then(function(response) {
@@ -34,7 +56,7 @@ $("#add-note").on("click", function() {
 });
 
 $(document).on("click", ".delete-note", function() {
-    $.ajax("/" + $("#add-note").attr("data-id"), {
+    $.ajax("/api/" + $("#add-note").attr("data-id"), {
         method: "DELETE",
         data: { id: $(this).attr("data-id") }
     }).then(function(response) {
@@ -43,7 +65,7 @@ $(document).on("click", ".delete-note", function() {
 })
 
 function populateNotes(articleId) {
-    $.ajax("/" + articleId, {
+    $.ajax("/api/" + articleId, {
         method: "GET"
     }).then(function(response) {
         $("#notes-section").empty();
@@ -65,5 +87,6 @@ function populateNotes(articleId) {
 };
 
 $(document).ready(function() {
+    if (window.location.pathname === "/favorites") $(".jumbotron h1").text("Favorites");
     countBadges();
 });

@@ -55,6 +55,13 @@ body {
     font-size: 25px;
 }
 
+.fa-star {
+    float: right;
+    margin-left: 5px;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
 .delete-note {
     cursor: pointer;
 }

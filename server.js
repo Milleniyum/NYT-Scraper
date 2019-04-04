@@ -35,7 +35,7 @@ app.get("/", function(req, res) {
 
             links.push(link); //used after the Promise.all() completes
 
-            promiseArr.push(db.Article.findOneAndUpdate({ "link": link }, { "title": title, "summary": summary, "byline": byline, "link": link }, { upsert: true }));
+            promiseArr.push(db.Article.findOneAndUpdate({ "link": link }, { "title": title, "summary": summary, "byline": byline, "link": link }, { upsert: true, setDefaultsOnInsert: true }));
         });
 
         Promise.all(promiseArr).then(function(resultPromise) {
@@ -50,7 +50,7 @@ app.get("/", function(req, res) {
                 .then(function(resultFind) {
                     var articles = [];
                     for (var i = 0; i < resultFind.length; i++) {
-                        var article = { id: resultFind[i]._id, title: resultFind[i].title, summary: resultFind[i].summary, byline: resultFind[i].byline, link: resultFind[i].link, notes: resultFind[i].notes.length, new: false };
+                        var article = { _id: resultFind[i]._id, title: resultFind[i].title, summary: resultFind[i].summary, byline: resultFind[i].byline, link: resultFind[i].link, notes: resultFind[i].notes.length, favorite: resultFind[i].favorite, new: false };
 
                         if (newLinks.indexOf(resultFind[i].link) > -1) article.new = true;
 
@@ -68,7 +68,7 @@ app.get("/", function(req, res) {
     });
 });
 
-app.get("/:article", function(req, res) {
+app.get("/api/:article", function(req, res) {
     db.Article.findOne({ _id: req.params.article })
         .populate("notes")
         .then(function(data) {
@@ -78,7 +78,7 @@ app.get("/:article", function(req, res) {
         });
 });
 
-app.put("/:article", function(req, res) {
+app.put("/api/:article", function(req, res) {
     db.Note.create(req.body)
         .then(function(data) {
             db.Article.findOneAndUpdate({ _id: req.params.article }, { $push: { notes: data._id } }, { new: true })
@@ -92,7 +92,7 @@ app.put("/:article", function(req, res) {
         });
 });
 
-app.delete("/:article", function(req, res) {
+app.delete("/api/:article", function(req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.article }, { $pull: { notes: req.body.id } }, { new: true })
         .then(function(data) {
             db.Note.deleteOne({ _id: req.body.id })
@@ -101,6 +101,30 @@ app.delete("/:article", function(req, res) {
                 }).catch(function(err) {
                     res.json(err);
                 })
+        }).catch(function(err) {
+            res.json(err);
+        });
+});
+
+app.get("/favorites", function(req, res) {
+    db.Article.find({ "favorite": true })
+        .then(function(data) {
+            var articles = [];
+            for (var i = 0; i < data.length; i++) {
+                var article = { _id: data[i]._id, title: data[i].title, summary: data[i].summary, byline: data[i].byline, link: data[i].link, notes: data[i].notes.length };
+
+                articles.push(article);
+            };
+            res.render("favorites", { articles: articles });
+        }).catch(function(err) {
+            res.json(err);
+        });
+});
+
+app.post("/favorites", function(req, res) {
+    db.Article.findOneAndUpdate({ _id: req.body.articleId }, { favorite: req.body.favorite }, { new: true })
+        .then(function(data) {
+            res.json(data);
         }).catch(function(err) {
             res.json(err);
         });
